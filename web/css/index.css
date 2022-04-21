@@ -1,0 +1,177 @@
+* {
+    /* 初始化 */
+    margin: 0;
+    padding: 0;
+}
+body {
+    /* 100%窗口高度 */
+    height: 100vh;
+    /* 弹性布局 居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 栅格背景 */
+    background-color: #f1dea1;
+    /** 
+     * β 表示颜色完全显示(没有开始渐变)的位置, Θ 表示当前背景色透明(transparent)的右区间, 左区间为上一个 Θ (初始为 0)
+     * 又令 str = "(rgba() β)*, transparent Θ", 其中 (rgba() β)* 表示 0 个或多个 rgba() β
+     * 那么格式可以写作
+     * linear-gradient(颜色变化角度, str*), 其中 str* 表示 0 个或多个 str
+     */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+.container {
+    /* 相对定位 */
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 15px;
+    /* 弹性布局 垂直排列 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 500px;
+    /* 阴影 */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+.container .tit {
+    font-size: 26px;
+    margin: 65px auto 70px auto;
+    border-bottom: 5.6px ridge #f1dea1;
+}
+.container input {
+    width: 280px;
+    height: 30px;
+    text-indent: 1em;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    margin: 12px auto;
+}
+.container button {
+    width: 280px;
+    height: 40px;
+    margin: 35px auto 40px auto;
+    border: none;
+    background-color: #f1dea1;
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-radius:10px;
+    cursor: pointer;
+    /* 动画过渡 */
+    transition: 0.5s;
+}
+.container button:hover {
+    background-color: #f1dea1;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+}
+.container span {
+    font-size: 14px;
+}
+.container a {
+    color: #f1dea1;
+    text-decoration: none;
+}
+ul li {
+    position: absolute;
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    list-style: none;
+    opacity: 0;
+}
+.square li {
+    top: 40vh;
+    left: 66vw;
+    /* 执行动画: 动画名 时长 线性的 无限次播放 */
+    animation: square 10s linear infinite;
+}
+.square li:nth-child(2) {
+    top: 80vh;
+    left: 10vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 2s;
+}
+.square li:nth-child(3) {
+    top: 80vh;
+    left: 85vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 4s;
+}
+.square li:nth-child(4) {
+    top: 10vh;
+    left: 70vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 6s;
+}
+.square li:nth-child(5) {
+    top: 10vh;
+    left: 10vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 8s;
+}
+.circle li {
+    bottom: 0;
+    left: 15vw;
+    /* 执行动画 */
+    animation: circle 10s linear infinite;
+}
+.circle li:nth-child(2) {
+    left: 35vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 2s;
+}
+.circle li:nth-child(3) {
+    left: 55vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 6s;
+}
+.circle li:nth-child(4) {
+    left: 75vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 4s;
+}
+.circle li:nth-child(5) {
+    left: 90vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 8s;
+}
+
+
+/* 定义动画 */
+@keyframes square {
+    /* 开始 */
+    0% {
+        transform: scale(0) rotateY(0deg);
+        opacity: 1;
+    }
+    /* 结束 */
+    100% {
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0;
+    }
+}
+@keyframes circle {
+    /* 开始 */
+    0% {
+        transform: scale(0) rotateY(0deg);
+        opacity: 1;
+        bottom: 0;
+        border-radius: 0;
+    }
+    /* 结束 */
+    100% {
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0;
+        bottom: 90vh;
+        border-radius: 50%;
+    }
+}
