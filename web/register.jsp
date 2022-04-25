@@ -8,9 +8,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Welcome To STM.</title>
+    <link rel="stylesheet" href="css/style01.css">
 </head>
 <body>
-
+<div class="container" style="height: 680px;">
+    <div class="tit">注册</div>
+    <input class="inputext" type="text" placeholder="用户名">
+    <span class="gb">
+        <input class="gbmale" id="male" type="radio" name="gender" value="1">
+        <label for="male">男</label>
+        <input class="gbfemale" id="female" type="radio" name="gender" value="2">
+        <label for="female">女</label>
+    </span>
+    <input class="inputext" type="text" placeholder="年龄">
+    <input class="inputext" type="text" placeholder="邮箱">
+    <input class="inputext" type="password" placeholder="密码">
+    <input class="inputext" type="password" placeholder="确认密码">
+    <button>注册</button>
+    <span>已有账号？<a href="login.jsp">去登录</a></span>
+</div>
+<div class="square">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div class="circle">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 </body>
 </html>

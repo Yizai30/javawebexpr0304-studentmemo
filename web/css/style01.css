@@ -42,7 +42,7 @@ body {
     margin: 65px auto 70px auto;
     border-bottom: 5.6px ridge #f1dea1;
 }
-.container input {
+.container .inputext {
     width: 280px;
     height: 30px;
     text-indent: 1em;
@@ -51,6 +51,28 @@ body {
     border-bottom: 1px solid #ddd;
     outline: none;
     margin: 12px auto;
+}
+.container .gb {
+    display: flex;
+}
+.container .gb .gbmale {
+    width: 40px;
+    height: 16px;
+    text-indent: unset;
+    vertical-align:middle;
+    margin-top:13px;
+}
+.container .gb .gbfemale {
+    width: 40px;
+    height: 16px;
+    text-indent: unset;
+    vertical-align:middle;
+    margin-top:13px;
+    margin-left:30px
+}
+.container .gb label {
+    margin-top: 10px;
+    font-size: 16px;
 }
 .container button {
     width: 280px;
