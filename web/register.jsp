@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Welcome To STM.</title>
+    <title>Register For STM</title>
     <link rel="stylesheet" href="css/style01.css">
 </head>
 <body>
