@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        Passwd passwd = new Passwd() ;
+        Passwd passwd = new Passwd();
         passwd.setUsername(username);
         passwd.setPassword(password);
 

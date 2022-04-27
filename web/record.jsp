@@ -53,6 +53,12 @@
             </div>
         </div>
 
+        <%
+            if (request.getSession().getAttribute("passwd") == null) {
+                response.sendRedirect("RecordServlet");
+            }
+        %>
+
         <script src="./js/vanilla-tilt.js"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

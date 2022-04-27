@@ -11,6 +11,10 @@
     <title>Welcome To STM</title>
 </head>
 <body>
-
+    <%
+        if (request.getSession().getAttribute("passwd") == null) {
+            response.sendRedirect("IndexServlet");
+        }
+    %>
 </body>
 </html>
