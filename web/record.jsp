@@ -46,8 +46,8 @@
                         <textarea id="eventContent" class="inputextarea"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="closebtn" data-dismiss="modal">Close</button>
-                        <button class="savebtn" data-dismiss="modal" onclick="createCard()">Save</button>
+                        <button class="closebtn" data-dismiss="modal">关闭</button>
+                        <button class="savebtn" data-dismiss="modal" onclick="createCard()">保存</button>
                     </div>
                 </div>
             </div>

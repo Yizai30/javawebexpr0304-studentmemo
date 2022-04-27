@@ -14,9 +14,11 @@
 <body>
 <div class="container">
     <div class="tit">登录</div>
-    <input class="inputext" type="text" placeholder="用户名">
-    <input class="inputext" type="password" placeholder="密码">
-    <button>登录</button>
+    <form class="subcontainer" action="LoginServlet" method="post">
+        <input class="inputext" type="text" placeholder="用户名" name="username">
+        <input class="inputext" type="password" placeholder="密码" name="password">
+        <button type="submit">登录</button>
+    </form>
     <span>没有账号？<a href="register.jsp">去注册</a></span>
 </div>
 <div class="square">

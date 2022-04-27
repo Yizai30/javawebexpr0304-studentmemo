@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Welcome To STM</title>
+        <title>Edit Your Cards</title>
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/style02.css">
     </head>
@@ -46,8 +46,8 @@
                         <textarea id="eventContent" class="inputextarea"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="closebtn" data-dismiss="modal">Close</button>
-                        <button class="savebtn" data-dismiss="modal" onclick="createCard()">Save</button>
+                        <button class="closebtn" data-dismiss="modal">关闭</button>
+                        <button class="savebtn" data-dismiss="modal" onclick="createCard()">保存</button>
                     </div>
                 </div>
             </div>
