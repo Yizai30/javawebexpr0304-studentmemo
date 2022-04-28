@@ -1,6 +1,7 @@
 package dao;
 
 import vo.Passwd;
+import vo.Record;
 import vo.Usr;
 
 public interface IUsrDAO {
@@ -9,4 +10,5 @@ public interface IUsrDAO {
     public Usr findByUsername(String username) throws Exception; // 根据 username 查询，返回所有 Usr
     public Passwd findByUsername2(String username) throws Exception; // 根据 username 查询，返回所有 Passwd
     public boolean check(Passwd passwd) throws Exception; // 登录校验
+    public boolean doCreateRecord(Record record) throws Exception; // 向 record_info 表中插入记录
 }

@@ -13,10 +13,11 @@ public class Record {
     public Record() {
     }
 
-    public Record(int id, String username, Date createTime, String content, boolean isComplete) {
+    public Record(int id, String username, Date createTime, Date deadLine, String content, boolean isComplete) {
         this.id = id;
         this.username = username;
         this.createTime = createTime;
+        this.deadLine = deadLine;
         this.content = content;
         this.isComplete = isComplete;
     }
@@ -43,6 +44,14 @@ public class Record {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(Date deadLine) {
+        this.deadLine = deadLine;
     }
 
     public String getContent() {

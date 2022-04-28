@@ -4,6 +4,7 @@ import dao.IUsrDAO;
 import dao.impl.UsrDAOImpl;
 import dbc.DatabaseConnection;
 import vo.Passwd;
+import vo.Record;
 import vo.Usr;
 
 public class UsrDAOProxy implements IUsrDAO {
@@ -76,6 +77,19 @@ public class UsrDAOProxy implements IUsrDAO {
         boolean flag = false;
         try {
             flag = this.dao.check(passwd);
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean doCreateRecord(Record record) throws Exception {
+        boolean flag = false;
+        try {
+            flag = this.dao.doCreateRecord(record);
         } catch(Exception e) {
             throw e;
         } finally {

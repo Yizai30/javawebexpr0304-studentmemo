@@ -7,6 +7,11 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+
+    <session-config>
+        <!-- 时间单位为分钟 -->
+        <session-timeout>30</session-timeout>
+    </session-config>
     
     <servlet>
         <servlet-name>login</servlet-name>
@@ -42,6 +47,15 @@
     <servlet-mapping>
         <servlet-name>record</servlet-name>
         <url-pattern>/RecordServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>jlRecord</servlet-name>
+        <servlet-class>servlet.JudgeLoginRecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jlRecord</servlet-name>
+        <url-pattern>/JudgeLoginRecordServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

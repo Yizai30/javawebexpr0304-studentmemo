@@ -1,10 +1,18 @@
 package servlet;
 
+import factory.DAOFactory;
 import vo.Passwd;
+import vo.Record;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RecordServlet extends HttpServlet {
     @Override
@@ -15,29 +23,34 @@ public class RecordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // 设置成功跳转路径
-        String successpath = "record.jsp";
+        // 设置 req 编码方式，防止乱码
+        req.setCharacterEncoding("utf-8");
 
-        // 设置失败跳转路径
-        String failurepath = "login.jsp";
-
-        // 设置 response 编码方式，防止乱码
-        resp.setContentType("text/html;charset=utf-8");
-
-        // 创建 session 保存用户信息
+        // 从 session 中获取当前登录的用户
         HttpSession session = req.getSession();
-
-        // 获得 session 中的用户对象
         Passwd passwd = (Passwd) session.getAttribute("passwd");
 
-        // 判断是否登录
-        if (passwd == null) {  // 考虑使用多线程实现动态倒计时
-            resp.getWriter().print("您还未登录，3秒后将跳转到<a href='login.jsp'>登录页面</a>");
-            resp.setHeader("Refresh","3;URL="+failurepath);
-        } else {
-            Cookie cookie = new Cookie("JSESSIONID", session.getId());
-            resp.addCookie(cookie);
-            req.getRequestDispatcher(successpath).forward(req, resp);
+        // 新建时间格式化类对象
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // 从前端获得卡片数据
+        Record record = new Record();
+        record.setUsername(passwd.getUsername());
+        record.setCreateTime(new Date());
+        try {
+            record.setDeadLine(sdf.parse(req.getParameter("ddlYear") + "-"
+                    + req.getParameter("ddlMonth") + "-" + req.getParameter("ddlDay")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        record.setContent(req.getParameter("eventContent"));
+        record.setComplete(false);
+
+        // 将数据写入数据库
+        try {
+            DAOFactory.getIUsrDAOInstance().doCreateRecord(record);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

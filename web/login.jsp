@@ -14,10 +14,10 @@
 <body>
     <div class="container">
         <div class="tit">登录</div>
-        <form class="subcontainer" action="LoginServlet" method="post">
-            <input class="inputext" type="text" placeholder="用户名" name="username">
-            <input class="inputext" type="password" placeholder="密码" name="password">
-            <button type="submit">登录</button>
+        <form class="subcontainer" name="loginForm" action="LoginServlet" method="post">
+            <input class="inputext" type="text" placeholder="用户名" name="username"/>
+            <input class="inputext" type="password" placeholder="密码" name="password"/>
+            <input class="smbutton" type="button" value="登录" onclick="checkLogin(this.form)"/>
         </form>
         <span>没有账号？<a href="register.jsp">去注册</a></span>
     </div>
@@ -39,5 +39,29 @@
             <li></li>
         </ul>
     </div>
+
+    <script type="text/javascript">
+        function checkLogin(form) {
+            if (!isUsername(form.username.value)) {
+                alert("用户名请填写 4-16 位的英文字符,数字,下划线");
+                form.username.focus();
+                return false;
+            }
+            if (!isPassword(form.password.value)) {
+                alert("密码请填写 6-16 位的英文字符,数字,下划线");
+                form.password.focus();
+                return false;
+            }
+            document.loginForm.submit();
+        }
+        function isUsername(str) {
+            var reg = /^[a-zA-Z0-9_]{4,16}$/;   /*定义验证表达式*/
+            return reg.test(str);     /*进行验证*/
+        }
+        function isPassword(str) {
+            var reg = /^[a-zA-Z\d_]{6,16}$/;
+            return reg.test(str);
+        }
+    </script>
 </body>
 </html>

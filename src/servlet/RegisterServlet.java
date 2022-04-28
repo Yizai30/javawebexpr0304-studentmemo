@@ -20,13 +20,19 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        // 设置 response 编码方式，防止乱码
+        resp.setContentType("text/html;charset=utf-8");
+
         String successPath = "login.jsp";
         String failurePath = "register.jsp";
 
         Usr usr = new Usr();
         usr.setUsername(req.getParameter("username"));
         usr.setGender(Byte.parseByte(req.getParameter("gender")));
-        usr.setAge(Integer.parseInt(req.getParameter("age")));
+        if (req.getParameter("age") != null
+                && !req.getParameter("age").equals("")) {
+            usr.setAge(Integer.parseInt(req.getParameter("age")));
+        }
         usr.setEmail(req.getParameter("email"));
 
         Passwd passwd = new Passwd();
@@ -44,9 +50,11 @@ public class RegisterServlet extends HttpServlet {
 
         try{
             if (flag) {
-                req.getRequestDispatcher(successPath).forward(req, resp);
+                resp.getWriter().print("<script>alert('注册成功！');" +
+                        "window.location.href='" + successPath + "';</script>");
             } else {
-                req.getRequestDispatcher(failurePath).forward(req, resp);
+                resp.getWriter().print("<script>alert('用户已存在，请直接登录');" +
+                        "window.location.href='" + successPath + "';</script>");
             }
         } catch(Exception e) {
             e.printStackTrace() ;

@@ -18,6 +18,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        // 设置 response 编码方式，防止乱码
+        resp.setContentType("text/html;charset=utf-8");
+
         String successPath = "IndexServlet";
         String failurePath = "login.jsp";
         String username = req.getParameter("username");
@@ -41,9 +44,11 @@ public class LoginServlet extends HttpServlet {
         try{
             if(flag){
                 req.getSession().setAttribute("passwd", passwd);
-                req.getRequestDispatcher(successPath).forward(req, resp);
+                resp.getWriter().print("<script>alert('登录成功！');" +
+                        "window.location.href='" + successPath + "';</script>");
             } else {
-                req.getRequestDispatcher(failurePath).forward(req, resp);
+                resp.getWriter().print("<script>alert('登录失败，请检查用户名和密码是否正确');" +
+                        "window.location.href='" + failurePath + "';</script>");
             }
         }catch(Exception e){
             e.printStackTrace() ;

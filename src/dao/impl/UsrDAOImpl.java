@@ -2,11 +2,14 @@ package dao.impl;
 
 import dao.IUsrDAO;
 import vo.Passwd;
+import vo.Record;
 import vo.Usr;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 public class UsrDAOImpl implements IUsrDAO {
     private Connection conn = null;
@@ -124,6 +127,32 @@ public class UsrDAOImpl implements IUsrDAO {
         }
         else {
             flag = false;
+        }
+
+        this.pstmt.close();
+        return flag;
+    }
+
+    @Override
+    public boolean doCreateRecord(Record record) throws Exception {
+
+        // 转换 createTime 类型
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date date = sdf.parse(sdf.format(record.getCreateTime()));
+        java.sql.Date datesql = new java.sql.Date(date.getTime());
+
+        // 向 usr_info 表中插入行
+        boolean flag = false;
+        String sql = "INSERT INTO record_info(username,create_time,deadline,content,is_complete) VALUES (?,?,?,?,?)";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1, record.getUsername());
+        this.pstmt.setDate(2, datesql);
+        this.pstmt.setDate(3, (Date) record.getDeadLine());
+        this.pstmt.setString(4, record.getContent());
+        this.pstmt.setBoolean(5, record.isComplete());
+        if (this.pstmt.executeUpdate() > 0) {
+            System.out.println("record_info insert successfully.");
+            flag = true;
         }
 
         this.pstmt.close();
