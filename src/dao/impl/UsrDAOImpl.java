@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 public class UsrDAOImpl implements IUsrDAO {
     private Connection conn = null;
@@ -138,16 +139,22 @@ public class UsrDAOImpl implements IUsrDAO {
 
         // 转换 createTime 类型
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         java.util.Date date = sdf.parse(sdf.format(record.getCreateTime()));
-        java.sql.Date datesql = new java.sql.Date(date.getTime());
+        java.sql.Timestamp datesql = new java.sql.Timestamp(date.getTime());
+
+        // 转换 deadLine 类型
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date2 = sdf.parse(sdf.format(record.getDeadLine()));
+        java.sql.Date datesql2 = new java.sql.Date(date2.getTime());
 
         // 向 usr_info 表中插入行
         boolean flag = false;
         String sql = "INSERT INTO record_info(username,create_time,deadline,content,is_complete) VALUES (?,?,?,?,?)";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(1, record.getUsername());
-        this.pstmt.setDate(2, datesql);
-        this.pstmt.setDate(3, (Date) record.getDeadLine());
+        this.pstmt.setTimestamp(2, datesql);
+        this.pstmt.setDate(3, datesql2);
         this.pstmt.setString(4, record.getContent());
         this.pstmt.setBoolean(5, record.isComplete());
         if (this.pstmt.executeUpdate() > 0) {

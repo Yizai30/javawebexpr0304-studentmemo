@@ -37,38 +37,27 @@
                         </button>
                         <h4 class="modal-title" id="myModalLabel" style="font-size:28px;font-weight: bold;">添加一项待做事件</h4>
                     </div>
-                    <div class="modal-body">
-                        <form role="form" action="RecordServlet" method="post">
-
-<%--                            <form class="form-inline" role="form">--%>
-                            <div class="form-group">
-                                <p style="font-size: 16px;font-weight: bold;">截止时间：</p>
-                                <input id="ddlYear" name="ddlYear" class="form-control inputext" style="width: 88px" type="text" placeholder="YYYY">
-                                <span style="font-size: 16px;font-weight: bold;">年</span>
-                            </div>
-                            <div class="form-group">
-                                <input id="ddlMonth" name="ddlMonth" class="form-control inputext" style="width: 72px" type="text" placeholder="MM">
-                                <span style="font-size: 16px;font-weight: bold;">月</span>
-                            </div>
-                            <div class="form-group">
-                                <input id="ddlDay" name="ddlDay" class="form-control inputext" style="width: 72px" type="text" placeholder="DD">
-                                <span style="font-size: 16px;font-weight: bold;">日</span>
-                            </div>
-<%--                            </form>--%>
-
-                            <div class="form-group">
-                                <p style="font-size: 16px;font-weight: bold;">事件内容：</p>
-                                <textarea id="eventContent" name="eventContent" class="form-control inputextarea"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
-                                <button type="submit" class="savebtn" data-dismiss="modal" onclick="checkCard(this.form)">保存</button>
-                            </div>
-                        </form>
-                    </div>
+                    <form name="recordForm" action="RecordServlet" method="post">
+                        <div class="modal-body">
+                            <p style="font-size: 16px;font-weight: bold;">截止时间：</p>
+                            <input id="ddlYear" name="ddlYear" class="inputext" style="width: 88px" type="text" placeholder="YYYY">
+                            <span style="font-size: 16px;font-weight: bold;">年</span>
+                            <input id="ddlMonth" name="ddlMonth" class="inputext" style="width: 72px" type="text" placeholder="MM">
+                            <span style="font-size: 16px;font-weight: bold;">月</span>
+                            <input id="ddlDay" name="ddlDay" class="inputext" style="width: 72px" type="text" placeholder="DD">
+                            <span style="font-size: 16px;font-weight: bold;">日</span>
+                            <p style="font-size: 16px;font-weight: bold;">事件内容：</p>
+                            <textarea id="eventContent" name="eventContent" class="inputextarea"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
+                            <input type="button" class="savebtn" value="保存" onclick="checkCard(this.form)"/>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
 
 
         <%
@@ -121,14 +110,14 @@
 
                 // 校验成功，创建卡片
                 createCard();
-                return true;
+                document.recordForm.submit();
             }
             function isYear(str) {
                 var reg=/^20(2[2-9]|[3-4][0-9]|50)$/;
                 return reg.test(str);
             }
             function isMonth(str) {
-                var reg=/^0[1-9]|1[0-2]$/;
+                var reg=/^(0[1-9]|1[0-2])$/;
                 return reg.test(str);
             }
             function isDay(year, month, day) {

@@ -49,6 +49,7 @@ public class RecordServlet extends HttpServlet {
         // 将数据写入数据库
         try {
             DAOFactory.getIUsrDAOInstance().doCreateRecord(record);
+            resp.sendRedirect("record.jsp");
         } catch (Exception e) {
             e.printStackTrace();
         }
