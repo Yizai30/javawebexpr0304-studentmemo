@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html>
     <head>
         <title>Edit Your Cards</title>
@@ -22,12 +23,22 @@
                     <button class="del">删除记录</button>
                 </div>
             </div>
+            <c:forEach items="${recordList}" var="record">
+                <div class="card">
+                    <div class="content">
+                        <h3>${record.deadLine}</h3>
+                        <p>${record.content}</p>
+                        <a href="#">更多内容</a><br>
+                        <a href="DeleteRecordServlet?id=${record.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${record.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
         <div class="container2">
           <button class="addbtn" data-toggle="modal" data-target="#myModal"></button>
         </div>
 
-        <%--    模态框    --%>
+        <%--    模态框为当前用户添加一条事件记录    --%>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -37,7 +48,7 @@
                         </button>
                         <h4 class="modal-title" id="myModalLabel" style="font-size:28px;font-weight: bold;">添加一项待做事件</h4>
                     </div>
-                    <form name="recordForm" action="RecordServlet" method="post">
+                    <form name="recordForm" action="InsertRecordServlet" method="post">
                         <div class="modal-body">
                             <p style="font-size: 16px;font-weight: bold;">截止时间：</p>
                             <input id="ddlYear" name="ddlYear" class="inputext" style="width: 88px" type="text" placeholder="YYYY">
@@ -109,7 +120,7 @@
                 }
 
                 // 校验成功，创建卡片
-                createCard();
+                // createCard();
                 document.recordForm.submit();
             }
             function isYear(str) {

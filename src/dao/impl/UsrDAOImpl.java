@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 public class UsrDAOImpl implements IUsrDAO {
@@ -164,5 +166,47 @@ public class UsrDAOImpl implements IUsrDAO {
 
         this.pstmt.close();
         return flag;
+    }
+
+    @Override
+    public List<Record> findRecordByUsername(String username) throws Exception {
+
+        List<Record> records = new ArrayList<Record>();
+        String sql = "SELECT id,username,create_time,deadline,content,is_complete FROM record_info WHERE username=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1,username);
+        ResultSet rs = this.pstmt.executeQuery();
+        while (rs.next()) {
+
+            Record record = new Record();
+
+            record.setId(rs.getInt(1));
+            record.setUsername(rs.getString(2));
+            record.setCreateTime(rs.getDate(3));
+            record.setDeadLine(rs.getDate(4));
+            record.setContent(rs.getString(5));
+            record.setComplete(rs.getBoolean(6));
+
+            records.add(record);
+        }
+
+        this.pstmt.close();
+        return records;
+    }
+
+    @Override
+    public int delRecordById(int id) throws Exception {
+
+        int cnt = 0;
+        String sql = "DELETE FROM record_info WHERE id=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setInt(1,id);
+        if (this.pstmt.executeUpdate() == 1) {
+            System.out.println("delete from record_info successfully.");
+            cnt = 1;
+        }
+
+        this.pstmt.close();
+        return cnt;
     }
 }

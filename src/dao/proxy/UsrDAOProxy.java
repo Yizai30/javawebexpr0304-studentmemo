@@ -7,6 +7,8 @@ import vo.Passwd;
 import vo.Record;
 import vo.Usr;
 
+import java.util.List;
+
 public class UsrDAOProxy implements IUsrDAO {
     private DatabaseConnection dbc = null;
     private IUsrDAO dao = null;
@@ -96,5 +98,31 @@ public class UsrDAOProxy implements IUsrDAO {
             this.dbc.close();
         }
         return flag;
+    }
+
+    @Override
+    public List<Record> findRecordByUsername(String username) throws Exception {
+        List<Record> records = null;
+        try {
+            records = this.dao.findRecordByUsername(username);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return records;
+    }
+
+    @Override
+    public int delRecordById(int id) throws Exception {
+        int cnt = 0;
+        try {
+            cnt = this.dao.delRecordById(id);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return cnt;
     }
 }

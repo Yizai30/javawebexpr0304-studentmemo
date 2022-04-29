@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         // 设置 response 编码方式，防止乱码
         resp.setContentType("text/html;charset=utf-8");
 
-        String successPath = "IndexServlet";
+        String successPath = "ShowRecordServlet";
         String failurePath = "login.jsp";
         String username = req.getParameter("username");
         String password = req.getParameter("password");

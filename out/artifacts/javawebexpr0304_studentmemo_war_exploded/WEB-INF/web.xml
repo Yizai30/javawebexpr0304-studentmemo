@@ -40,15 +40,7 @@
         <url-pattern>/IndexServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>record</servlet-name>
-        <servlet-class>servlet.RecordServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>record</servlet-name>
-        <url-pattern>/RecordServlet</url-pattern>
-    </servlet-mapping>
-
+    <!--  访问 record.jsp 前判断是否登录  -->
     <servlet>
         <servlet-name>jlRecord</servlet-name>
         <servlet-class>servlet.JudgeLoginRecordServlet</servlet-class>
@@ -58,4 +50,33 @@
         <url-pattern>/JudgeLoginRecordServlet</url-pattern>
     </servlet-mapping>
 
+    <!--  前台展示 record 数据  -->
+    <servlet>
+        <servlet-name>showRecord</servlet-name>
+        <servlet-class>servlet.ShowRecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showRecord</servlet-name>
+        <url-pattern>/ShowRecordServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  向数据库中插入 record 数据  -->
+    <servlet>
+        <servlet-name>insertRecord</servlet-name>
+        <servlet-class>servlet.InsertRecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>insertRecord</servlet-name>
+        <url-pattern>/InsertRecordServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  根据 id 删除 record 数据  -->
+    <servlet>
+        <servlet-name>deleteRecord</servlet-name>
+        <servlet-class>servlet.DeleteRecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteRecord</servlet-name>
+        <url-pattern>/DeleteRecordServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

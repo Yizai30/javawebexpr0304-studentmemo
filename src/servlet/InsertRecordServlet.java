@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RecordServlet extends HttpServlet {
+public class InsertRecordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -49,7 +49,7 @@ public class RecordServlet extends HttpServlet {
         // 将数据写入数据库
         try {
             DAOFactory.getIUsrDAOInstance().doCreateRecord(record);
-            resp.sendRedirect("record.jsp");
+            resp.sendRedirect("ShowRecordServlet");
         } catch (Exception e) {
             e.printStackTrace();
         }

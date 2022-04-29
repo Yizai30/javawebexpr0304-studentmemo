@@ -18,7 +18,7 @@ public class JudgeLoginRecordServlet extends HttpServlet {
         // 设置 response 编码方式，防止乱码
         resp.setContentType("text/html;charset=utf-8");
 
-        String successPath = "record.jsp";
+        String successPath = "ShowRecordServlet";
         String failurePath = "login.jsp";
 
         // 创建 session 保存用户信息
