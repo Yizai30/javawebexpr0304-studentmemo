@@ -14,25 +14,28 @@
         <link rel="stylesheet" href="./css/style02.css">
     </head>
     <body>
-        <div id="records" class="container">
-            <div class="card">
-                <div class="content">
-                    <h3>2016-08-08</h3>
-                    <p>这是一个样例。</p>
-                    <a href="#">更多内容</a><br>
-                    <button class="del">删除记录</button>
-                </div>
-            </div>
-            <c:forEach items="${recordList}" var="record">
+        <div style="height: 100%;width: 100%">
+            <h1 style="color: #000;margin-left: 3%;font-weight: bold">My DDLS</h1>
+            <div id="records" class="container">
                 <div class="card">
                     <div class="content">
-                        <h3>${record.deadLine}</h3>
-                        <p>${record.content}</p>
+                        <h3>2016-08-08</h3>
+                        <p>这是一个样例。</p>
                         <a href="#">更多内容</a><br>
-                        <a href="DeleteRecordServlet?id=${record.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${record.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
+                        <button class="del">删除记录</button>
                     </div>
                 </div>
-            </c:forEach>
+                <c:forEach items="${recordList}" var="record">
+                    <div class="card">
+                        <div class="content">
+                            <h3>${record.deadLine}</h3>
+                            <p>${record.content}</p>
+                            <a href="#">更多内容</a><br>
+                            <a href="DeleteRecordServlet?id=${record.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${record.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
         </div>
         <div class="container2">
           <button class="addbtn" data-toggle="modal" data-target="#myModal"></button>

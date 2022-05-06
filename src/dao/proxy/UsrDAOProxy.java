@@ -3,6 +3,7 @@ package dao.proxy;
 import dao.IUsrDAO;
 import dao.impl.UsrDAOImpl;
 import dbc.DatabaseConnection;
+import vo.Diary;
 import vo.Passwd;
 import vo.Record;
 import vo.Usr;
@@ -118,6 +119,45 @@ public class UsrDAOProxy implements IUsrDAO {
         int cnt = 0;
         try {
             cnt = this.dao.delRecordById(id);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return cnt;
+    }
+
+    @Override
+    public boolean doCreateDiary(Diary diary) throws Exception {
+        boolean flag = false;
+        try {
+            flag = this.dao.doCreateDiary(diary);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return flag;
+    }
+
+    @Override
+    public List<Diary> findDiaryByUsername(String username) throws Exception {
+        List<Diary> diaries = null;
+        try {
+            diaries = this.dao.findDiaryByUsername(username);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return diaries;
+    }
+
+    @Override
+    public int delDiaryById(int id) throws Exception {
+        int cnt = 0;
+        try {
+            cnt = this.dao.delDiaryById(id);
         } catch (Exception e) {
             throw e;
         } finally {

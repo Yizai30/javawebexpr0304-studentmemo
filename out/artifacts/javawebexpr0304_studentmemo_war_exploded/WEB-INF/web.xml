@@ -79,4 +79,44 @@
         <servlet-name>deleteRecord</servlet-name>
         <url-pattern>/DeleteRecordServlet</url-pattern>
     </servlet-mapping>
+
+    <!--  访问 diary.jsp 前判断是否登录  -->
+    <servlet>
+        <servlet-name>jlDiary</servlet-name>
+        <servlet-class>servlet.JudgeLoginDiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jlDiary</servlet-name>
+        <url-pattern>/JudgeLoginDiaryServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  前台展示 diary 数据  -->
+    <servlet>
+        <servlet-name>showDiary</servlet-name>
+        <servlet-class>servlet.ShowDiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showDiary</servlet-name>
+        <url-pattern>/ShowDiaryServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  向数据库中插入 diary 数据  -->
+    <servlet>
+        <servlet-name>insertDiary</servlet-name>
+        <servlet-class>servlet.InsertDiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>insertDiary</servlet-name>
+        <url-pattern>/InsertDiaryServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  根据 id 删除 diary 数据  -->
+    <servlet>
+        <servlet-name>deleteDiary</servlet-name>
+        <servlet-class>servlet.DeleteDiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteDiary</servlet-name>
+        <url-pattern>/DeleteDiaryServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

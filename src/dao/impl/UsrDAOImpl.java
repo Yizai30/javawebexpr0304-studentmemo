@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.IUsrDAO;
+import vo.Diary;
 import vo.Passwd;
 import vo.Record;
 import vo.Usr;
@@ -150,7 +151,7 @@ public class UsrDAOImpl implements IUsrDAO {
         java.util.Date date2 = sdf.parse(sdf.format(record.getDeadLine()));
         java.sql.Date datesql2 = new java.sql.Date(date2.getTime());
 
-        // 向 usr_info 表中插入行
+        // 向 record_info 表中插入行
         boolean flag = false;
         String sql = "INSERT INTO record_info(username,create_time,deadline,content,is_complete) VALUES (?,?,?,?,?)";
         this.pstmt = this.conn.prepareStatement(sql);
@@ -204,6 +205,71 @@ public class UsrDAOImpl implements IUsrDAO {
         if (this.pstmt.executeUpdate() == 1) {
             System.out.println("delete from record_info successfully.");
             cnt = 1;
+        }
+
+        this.pstmt.close();
+        return cnt;
+    }
+
+    @Override
+    public boolean doCreateDiary(Diary diary) throws Exception {
+
+        // 转换 createTime 类型
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = sdf.parse(sdf.format(diary.getCreateTime()));
+        java.sql.Date datesql = new java.sql.Date(date.getTime());
+
+        // 向 diary_info 表中插入行
+        boolean flag = false;
+        String sql = "INSERT INTO diary_info(username,create_time,content,mood) VALUES (?,?,?,?)";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1,diary.getUsername());
+        this.pstmt.setDate(2, datesql);
+        this.pstmt.setString(3, diary.getContent());
+        this.pstmt.setString(4, diary.getMood());
+        if (this.pstmt.executeUpdate() > 0) {
+            System.out.println("diary_info insert successfully.");
+            flag = true;
+        }
+
+        this.pstmt.close();
+        return flag;
+    }
+
+    @Override
+    public List<Diary> findDiaryByUsername(String username) throws Exception {
+
+        List<Diary> diaries = new ArrayList<Diary>();
+        String sql = "SELECT id,username,create_time,content,mood FROM diary_info WHERE username=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1, username);
+        ResultSet rs = this.pstmt.executeQuery();
+        while (rs.next()) {
+
+            Diary diary = new Diary();
+
+            diary.setId(rs.getInt(1));
+            diary.setUsername(rs.getString(2));
+            diary.setCreateTime(rs.getDate(3));
+            diary.setContent(rs.getString(4));
+            diary.setMood(rs.getString(5));
+
+            diaries.add(diary);
+        }
+
+        this.pstmt.close();
+        return diaries;
+    }
+
+    @Override
+    public int delDiaryById(int id) throws Exception {
+
+        int cnt = 0;
+        String sql = "DELETE FROM diary_info WHERE id=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setInt(1, id);
+        if ((cnt = this.pstmt.executeUpdate()) == 1) {
+            System.out.println("delete from diary_info successfully.");
         }
 
         this.pstmt.close();

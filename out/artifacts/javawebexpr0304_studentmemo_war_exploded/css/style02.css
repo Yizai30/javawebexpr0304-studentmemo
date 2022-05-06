@@ -12,10 +12,11 @@
 body {
     /* 100%窗口高度 */
     min-height: 100vh;
+    min-width: 100vw;
     /* 弹性布局 水平+垂直居中 */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
     background-color: #f1dea1;
 }
 /* 给背景增加两个渐变圆 */

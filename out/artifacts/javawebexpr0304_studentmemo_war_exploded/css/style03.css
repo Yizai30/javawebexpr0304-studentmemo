@@ -11,7 +11,7 @@
 }
 body {
     /* 100%窗口高度 */
-    min-height: 100vh;
+    min-height: 1000vh;
     min-width: 100vw;
     /* 弹性布局 水平+垂直居中 */
     display: flex;
@@ -26,7 +26,7 @@ body::before {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 110%;
     height: 200%;
     /* 渐变背景 */
     background: rgba(255, 255, 255, 0.5);
@@ -39,7 +39,7 @@ body::after {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 110%;
     height: 200%;
     /* 渐变背景 */
     background: rgba(255, 255, 255, 0.5);
@@ -52,54 +52,63 @@ body::after {
     height: 100%;
     margin: 3%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: flex-start;
     z-index: 1;
 }
 .container .card {
     /* 相对定位 */
     position: relative;
-    width: 280px;
-    height: 400px;
+    width: 1300px;
+    height: auto;
     background-color: rgba(255, 255, 255, 0.1);
     margin: 30px;
     padding: 20px;
     border-radius: 15px;
-    text-align: center;
     /* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影颜色 */
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     /* 溢出隐藏 */
     overflow: hidden;
+    /* flex */
     display: flex;
-    justify-content: center;
-    align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
     /* 背景模糊 */
     backdrop-filter: blur(5px);
 }
-.container .card .content a {
+.container .content01 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.container .content02 {
+    height: 100%;
+    width: 10%;
+}
+.container .card .content02 a {
     padding: 20px;
-    /* 默认下移+隐藏 */
-    transform: translateY(100px);
+    /* 默认上移+隐藏 */
+    transform: translateY(0px);
     opacity: 0;
     transition: 0.5s;
 }
-.container .card:hover .content a {
-    /* 鼠标移入，上移+显示 */
-    transform: translateY(0);
+.container .card:hover .content02 a {
+    /* 鼠标移入，下移+显示 */
+    transform: translateY(100px);
     opacity: 1;
 }
-.container .card .content .del {
+.container .card .content02 .del {
     padding: 20px;
-    /* 默认下移+隐藏 */
-    transform: translateY(100px);
+    /* 默认上移+隐藏 */
+    transform: translateY(0px);
     opacity: 0;
     transition: 0.5s;
 }
-.container .card:hover .content .del {
-    /* 鼠标移入，上移+显示 */
-    transform: translateY(0);
+.container .card:hover .content02 .del {
+    /* 鼠标移入，下移+显示 */
+    transform: translateY(100px);
     opacity: 1;
 }
 .container .card h3 {
@@ -112,7 +121,7 @@ body::after {
     font-weight: 300;
     margin: 10px 0 15px 0;
 }
-.container .card .content a {
+.container .card .content02 a {
     position: relative;
     display: inline-block;
     padding: 8px 20px;
@@ -120,11 +129,13 @@ body::after {
     background-color: #fff;
     color: #000;
     text-decoration: none;
+    text-align: center;
     border-radius: 20px;
     font-weight: 500;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    vertical-align: bottom;
 }
-.container .card .content .del {
+.container .card .content02 .del {
     position: relative;
     display: inline-block;
     padding: 8px 20px;
@@ -135,6 +146,8 @@ body::after {
     border-radius: 20px;
     font-weight: 500;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    vertical-align: bottom;
+    margin-bottom: 130px;
 }
 .container2 {
     height: 100%;
