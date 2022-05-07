@@ -37,7 +37,16 @@
 - `LoginServlet`
 - `RegisterServlet`
 - `IndexServlet`
-- `RecordServlet`
+- `DeleteDiaryServlet`
+- `DeleteEventServlet`
+- `ReviseDiaryServlet`
+- `EditEventServlet`
+- `InsertDiaryServlet`
+- `InsertEventServlet`
+- `JudgeLoginDiaryServlet`
+- `JudgeLoginEventServlet`
+- `ShowDiaryServlet`
+- `ShowEventServlet`
 
 ###### 数据库（DAO）
 
