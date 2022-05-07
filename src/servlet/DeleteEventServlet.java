@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DeleteRecordServlet extends HttpServlet {
+public class DeleteEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -17,7 +17,7 @@ public class DeleteRecordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String successPath = "ShowRecordServlet";
+        String successPath = "ShowEventServlet";
         String failurePath = "error.jsp";
 
         // 获取待删除的记录的 id
@@ -30,7 +30,7 @@ public class DeleteRecordServlet extends HttpServlet {
         // 删除相应的 record
         int cnt = 0;
         try {
-            cnt = DAOFactory.getIUsrDAOInstance().delRecordById(id);
+            cnt = DAOFactory.getIUsrDAOInstance().delEventById(id);
         } catch (Exception e) {
             e.printStackTrace();
         }

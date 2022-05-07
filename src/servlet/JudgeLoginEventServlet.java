@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-public class JudgeLoginRecordServlet extends HttpServlet {
+public class JudgeLoginEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -18,7 +18,7 @@ public class JudgeLoginRecordServlet extends HttpServlet {
         // 设置 response 编码方式，防止乱码
         resp.setContentType("text/html;charset=utf-8");
 
-        String successPath = "ShowRecordServlet";
+        String successPath = "ShowEventServlet";
         String failurePath = "login.jsp";
 
         // 创建 session 保存用户信息

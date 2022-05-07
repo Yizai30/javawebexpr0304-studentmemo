@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditRecordServlet extends HttpServlet {
+public class EditEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -24,7 +24,7 @@ public class EditRecordServlet extends HttpServlet {
         resp.setContentType("text/html;charset=utf-8");
         req.setCharacterEncoding("utf-8");
 
-        String successPath = "ShowRecordServlet";
+        String successPath = "ShowEventServlet";
         String failurePath = "error.jsp";
 
         // 新建时间格式化类对象
@@ -49,7 +49,7 @@ public class EditRecordServlet extends HttpServlet {
         // 修改相应的 record
         int cnt = 0;
         try {
-            cnt = DAOFactory.getIUsrDAOInstance().edtRecordById(id, deadLine, content);
+            cnt = DAOFactory.getIUsrDAOInstance().edtEventById(id, deadLine, content);
         } catch (Exception e) {
             e.printStackTrace();
         }

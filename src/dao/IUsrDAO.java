@@ -1,8 +1,8 @@
 package dao;
 
 import vo.Diary;
+import vo.Event;
 import vo.Passwd;
-import vo.Record;
 import vo.Usr;
 
 import java.util.Date;
@@ -15,10 +15,10 @@ public interface IUsrDAO {
     public Passwd findByUsername2(String username) throws Exception;    // 根据 username 查询，返回所有 Passwd
     public boolean check(Passwd passwd) throws Exception;   // 登录校验
 
-    public boolean doCreateRecord(Record record) throws Exception;  // 向 record_info 表中插入记录
-    public List<Record> findRecordByUsername(String username) throws Exception; // 根据 username 查询 record_info 表中的所有记录
-    public int delRecordById(int id) throws Exception;  // 根据 id 删除 record
-    public int edtRecordById(int id, Date deadLine, String content) throws Exception;   // 根据 id 修改 record
+    public boolean doCreateEvent(Event event) throws Exception;  // 向 event_info 表中插入记录
+    public List<Event> findEventByUsername(String username) throws Exception; // 根据 username 查询 event_info 表中的所有记录
+    public int delEventById(int id) throws Exception;  // 根据 id 删除 event
+    public int edtEventById(int id, Date deadLine, String content) throws Exception;   // 根据 id 修改 event
 
     public boolean doCreateDiary(Diary diary) throws Exception; // 向 diary_info 表中插入记录
     public List<Diary> findDiaryByUsername(String username) throws Exception;   // 根据 username 查询 diary_info 表中的所有记录

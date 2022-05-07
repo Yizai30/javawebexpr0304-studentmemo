@@ -1,8 +1,8 @@
 package servlet;
 
 import factory.DAOFactory;
+import vo.Event;
 import vo.Passwd;
-import vo.Record;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ShowRecordServlet extends HttpServlet {
+public class ShowEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -27,15 +26,15 @@ public class ShowRecordServlet extends HttpServlet {
         Passwd passwd = (Passwd) session.getAttribute("passwd");
 
         // 保存当前登录用户 record 记录的列表
-        List<Record> records = null;
+        List<Event> events = null;
 
         try {
-            records = DAOFactory.getIUsrDAOInstance().findRecordByUsername(passwd.getUsername());
+            events = DAOFactory.getIUsrDAOInstance().findEventByUsername(passwd.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        req.setAttribute("recordList", records);
-        req.getRequestDispatcher("record.jsp").forward(req, resp);
+        req.setAttribute("eventList", events);
+        req.getRequestDispatcher("event.jsp").forward(req, resp);
     }
 }

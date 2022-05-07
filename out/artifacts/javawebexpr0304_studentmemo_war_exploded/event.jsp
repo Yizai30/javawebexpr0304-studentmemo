@@ -16,7 +16,7 @@
     <body>
         <div style="height: 100%;width: 100%">
             <h1 style="color: #000;margin-left: 3%;font-weight: bold">My DDLS</h1>
-            <div id="records" class="container">
+            <div id="events" class="container">
                 <div class="card">
                     <div class="content">
                         <h3>2016-08-08</h3>
@@ -25,13 +25,13 @@
                         <button class="del">删除记录</button>
                     </div>
                 </div>
-                <c:forEach items="${recordList}" var="record">
+                <c:forEach items="${eventList}" var="event">
                     <div class="card">
                         <div class="content">
-                            <h3>${record.deadLine}</h3>
-                            <p>${record.content}</p>
-                            <a href="#" onclick="storeRecord('${record.id}','${record.deadLine}','${record.content}')" data-toggle="modal" data-target="#editModal">编辑内容</a><br>
-                            <a href="DeleteRecordServlet?id=${record.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${record.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
+                            <h3>${event.deadLine}</h3>
+                            <p>${event.content}</p>
+                            <a href="#" onclick="storeEvent('${event.id}','${event.deadLine}','${event.content}')" data-toggle="modal" data-target="#editModal">编辑内容</a><br>
+                            <a href="DeleteEventServlet?id=${event.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${event.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
                         </div>
                     </div>
                 </c:forEach>
@@ -51,7 +51,7 @@
                         </button>
                         <h4 class="modal-title" id="myModalLabel" style="font-size:28px;font-weight: bold;">添加一项待做事件</h4>
                     </div>
-                    <form name="recordForm" action="InsertRecordServlet" method="post">
+                    <form name="recordForm" action="InsertEventServlet" method="post">
                         <div class="modal-body">
                             <p style="font-size: 16px;font-weight: bold;">截止时间：</p>
                             <input id="ddlYear" name="ddlYear" class="inputext" style="width: 88px" type="text" placeholder="YYYY">
@@ -82,7 +82,7 @@
                         </button>
                         <h4 class="modal-title" id="editModalLabel" style="font-size:28px;font-weight: bold;">修改待做事件</h4>
                     </div>
-                    <form name="editForm" action="EditRecordServlet" method="post">
+                    <form name="editForm" action="EditEventServlet" method="post">
                         <div class="modal-body">
                             <span style="font-size:16px;font-weight: bold;margin-bottom: 6px;display: none">记录ID：</span>
                             <input id="eId" name="eId" style="border: none;outline: none;width: 30px;display: none" readonly/>
@@ -107,7 +107,7 @@
 
         <%
             if (request.getSession().getAttribute("passwd") == null) {
-                response.sendRedirect("JudgeLoginRecordServlet");
+                response.sendRedirect("JudgeLoginEventServlet");
             }
         %>
 
@@ -215,8 +215,8 @@
                 document.editForm.submit();
             }
 
-            // 存储需要修改的 record 的 id, deadLine（需要进行字符串处理）, content
-            function storeRecord(id, deadLine, content) {
+            // 存储需要修改的 event 的 id, deadLine（需要进行字符串处理）, content
+            function storeEvent(id, deadLine, content) {
                 sessionStorage.setItem("eId", id);
                 $('#eId').attr("value", sessionStorage.getItem("eId"));
 
@@ -233,7 +233,7 @@
             function createCard() {
 
                 // 找到添加卡片的区域
-                let cardContainer = document.getElementById('records');
+                let cardContainer = document.getElementById('events');
 
                 // 待组装的节点
                 let div01 = document.createElement('div');
@@ -281,12 +281,12 @@
                 })
 
                 // 获取记录截止时间, 并按紧迫程度排序
-                var $divs = $('#records .card');
+                var $divs = $('#events .card');
                 $divs.sort(function(a,b){
                     var dateOfA = Date.parse($(a).find('h3').text());
                     var dateOfB = Date.parse($(b).find('h3').text());
                     return dateOfA - dateOfB;});
-                $divs.detach().appendTo('#records');
+                $divs.detach().appendTo('#events');
             }
 
             // 删除相应卡片（测试用）

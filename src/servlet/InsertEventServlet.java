@@ -1,8 +1,8 @@
 package servlet;
 
 import factory.DAOFactory;
+import vo.Event;
 import vo.Passwd;
-import vo.Record;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InsertRecordServlet extends HttpServlet {
+public class InsertEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -34,22 +34,22 @@ public class InsertRecordServlet extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         // 从前端获得卡片数据
-        Record record = new Record();
-        record.setUsername(passwd.getUsername());
-        record.setCreateTime(new Date());
+        Event event = new Event();
+        event.setUsername(passwd.getUsername());
+        event.setCreateTime(new Date());
         try {
-            record.setDeadLine(sdf.parse(req.getParameter("ddlYear") + "-"
+            event.setDeadLine(sdf.parse(req.getParameter("ddlYear") + "-"
                     + req.getParameter("ddlMonth") + "-" + req.getParameter("ddlDay")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        record.setContent(req.getParameter("eventContent"));
-        record.setComplete(false);
+        event.setContent(req.getParameter("eventContent"));
+        event.setComplete(false);
 
         // 将数据写入数据库
         try {
-            DAOFactory.getIUsrDAOInstance().doCreateRecord(record);
-            resp.sendRedirect("ShowRecordServlet");
+            DAOFactory.getIUsrDAOInstance().doCreateEvent(event);
+            resp.sendRedirect("ShowEventServlet");
         } catch (Exception e) {
             e.printStackTrace();
         }

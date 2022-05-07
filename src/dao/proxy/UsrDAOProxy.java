@@ -4,8 +4,8 @@ import dao.IUsrDAO;
 import dao.impl.UsrDAOImpl;
 import dbc.DatabaseConnection;
 import vo.Diary;
+import vo.Event;
 import vo.Passwd;
-import vo.Record;
 import vo.Usr;
 
 import java.util.Date;
@@ -90,10 +90,10 @@ public class UsrDAOProxy implements IUsrDAO {
     }
 
     @Override
-    public boolean doCreateRecord(Record record) throws Exception {
+    public boolean doCreateEvent(Event event) throws Exception {
         boolean flag = false;
         try {
-            flag = this.dao.doCreateRecord(record);
+            flag = this.dao.doCreateEvent(event);
         } catch(Exception e) {
             throw e;
         } finally {
@@ -103,23 +103,23 @@ public class UsrDAOProxy implements IUsrDAO {
     }
 
     @Override
-    public List<Record> findRecordByUsername(String username) throws Exception {
-        List<Record> records = null;
+    public List<Event> findEventByUsername(String username) throws Exception {
+        List<Event> events = null;
         try {
-            records = this.dao.findRecordByUsername(username);
+            events = this.dao.findEventByUsername(username);
         } catch (Exception e) {
             throw e;
         } finally {
             this.dbc.close();
         }
-        return records;
+        return events;
     }
 
     @Override
-    public int delRecordById(int id) throws Exception {
+    public int delEventById(int id) throws Exception {
         int cnt = 0;
         try {
-            cnt = this.dao.delRecordById(id);
+            cnt = this.dao.delEventById(id);
         } catch (Exception e) {
             throw e;
         } finally {
@@ -129,10 +129,10 @@ public class UsrDAOProxy implements IUsrDAO {
     }
 
     @Override
-    public int edtRecordById(int id, Date deadLine, String content) throws Exception {
+    public int edtEventById(int id, Date deadLine, String content) throws Exception {
         int cnt = 0;
         try {
-            cnt = this.dao.edtRecordById(id, deadLine, content);
+            cnt = this.dao.edtEventById(id, deadLine, content);
         } catch (Exception e) {
             throw e;
         } finally {

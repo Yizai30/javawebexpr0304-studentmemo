@@ -40,54 +40,54 @@
         <url-pattern>/IndexServlet</url-pattern>
     </servlet-mapping>
 
-    <!--  访问 record.jsp 前判断是否登录  -->
+    <!--  访问 event.jsp 前判断是否登录  -->
     <servlet>
-        <servlet-name>jlRecord</servlet-name>
-        <servlet-class>servlet.JudgeLoginRecordServlet</servlet-class>
+        <servlet-name>jlEvent</servlet-name>
+        <servlet-class>servlet.JudgeLoginEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>jlRecord</servlet-name>
-        <url-pattern>/JudgeLoginRecordServlet</url-pattern>
+        <servlet-name>jlEvent</servlet-name>
+        <url-pattern>/JudgeLoginEventServlet</url-pattern>
     </servlet-mapping>
 
-    <!--  前台展示 record 数据  -->
+    <!--  前台展示 event 数据  -->
     <servlet>
-        <servlet-name>showRecord</servlet-name>
-        <servlet-class>servlet.ShowRecordServlet</servlet-class>
+        <servlet-name>showEvent</servlet-name>
+        <servlet-class>servlet.ShowEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>showRecord</servlet-name>
-        <url-pattern>/ShowRecordServlet</url-pattern>
+        <servlet-name>showEvent</servlet-name>
+        <url-pattern>/ShowEventServlet</url-pattern>
     </servlet-mapping>
 
-    <!--  向数据库中插入 record 数据  -->
+    <!--  向数据库中插入 event 数据  -->
     <servlet>
-        <servlet-name>insertRecord</servlet-name>
-        <servlet-class>servlet.InsertRecordServlet</servlet-class>
+        <servlet-name>insertEvent</servlet-name>
+        <servlet-class>servlet.InsertEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>insertRecord</servlet-name>
-        <url-pattern>/InsertRecordServlet</url-pattern>
+        <servlet-name>insertEvent</servlet-name>
+        <url-pattern>/InsertEventServlet</url-pattern>
     </servlet-mapping>
 
-    <!--  根据 id 删除 record 数据  -->
+    <!--  根据 id 删除 event 数据  -->
     <servlet>
-        <servlet-name>deleteRecord</servlet-name>
-        <servlet-class>servlet.DeleteRecordServlet</servlet-class>
+        <servlet-name>deleteEvent</servlet-name>
+        <servlet-class>servlet.DeleteEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>deleteRecord</servlet-name>
-        <url-pattern>/DeleteRecordServlet</url-pattern>
+        <servlet-name>deleteEvent</servlet-name>
+        <url-pattern>/DeleteEventServlet</url-pattern>
     </servlet-mapping>
 
-    <!--  根据 id 修改 record 数据  -->
+    <!--  根据 id 修改 event 数据  -->
     <servlet>
-        <servlet-name>editRecord</servlet-name>
-        <servlet-class>servlet.EditRecordServlet</servlet-class>
+        <servlet-name>editEvent</servlet-name>
+        <servlet-class>servlet.EditEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>editRecord</servlet-name>
-        <url-pattern>/EditRecordServlet</url-pattern>
+        <servlet-name>editEvent</servlet-name>
+        <url-pattern>/EditEventServlet</url-pattern>
     </servlet-mapping>
 
     <!--  访问 diary.jsp 前判断是否登录  -->

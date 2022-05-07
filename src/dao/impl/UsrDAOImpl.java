@@ -3,11 +3,10 @@ package dao.impl;
 import dao.IUsrDAO;
 import vo.Diary;
 import vo.Passwd;
-import vo.Record;
+import vo.Event;
 import vo.Usr;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -138,30 +137,30 @@ public class UsrDAOImpl implements IUsrDAO {
     }
 
     @Override
-    public boolean doCreateRecord(Record record) throws Exception {
+    public boolean doCreateEvent(Event event) throws Exception {
 
         // 转换 createTime 类型
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        java.util.Date date = sdf.parse(sdf.format(record.getCreateTime()));
+        java.util.Date date = sdf.parse(sdf.format(event.getCreateTime()));
         java.sql.Timestamp datesql = new java.sql.Timestamp(date.getTime());
 
         // 转换 deadLine 类型
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date date2 = sdf.parse(sdf.format(record.getDeadLine()));
+        java.util.Date date2 = sdf.parse(sdf.format(event.getDeadLine()));
         java.sql.Date datesql2 = new java.sql.Date(date2.getTime());
 
         // 向 record_info 表中插入行
         boolean flag = false;
-        String sql = "INSERT INTO record_info(username,create_time,deadline,content,is_complete) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO event_info(username,create_time,deadline,content,is_complete) VALUES (?,?,?,?,?)";
         this.pstmt = this.conn.prepareStatement(sql);
-        this.pstmt.setString(1, record.getUsername());
+        this.pstmt.setString(1, event.getUsername());
         this.pstmt.setTimestamp(2, datesql);
         this.pstmt.setDate(3, datesql2);
-        this.pstmt.setString(4, record.getContent());
-        this.pstmt.setBoolean(5, record.isComplete());
+        this.pstmt.setString(4, event.getContent());
+        this.pstmt.setBoolean(5, event.isComplete());
         if (this.pstmt.executeUpdate() > 0) {
-            System.out.println("record_info insert successfully.");
+            System.out.println("event_info insert successfully.");
             flag = true;
         }
 
@@ -170,40 +169,40 @@ public class UsrDAOImpl implements IUsrDAO {
     }
 
     @Override
-    public List<Record> findRecordByUsername(String username) throws Exception {
+    public List<Event> findEventByUsername(String username) throws Exception {
 
-        List<Record> records = new ArrayList<Record>();
-        String sql = "SELECT id,username,create_time,deadline,content,is_complete FROM record_info WHERE username=?";
+        List<Event> events = new ArrayList<Event>();
+        String sql = "SELECT id,username,create_time,deadline,content,is_complete FROM event_info WHERE username=?";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(1,username);
         ResultSet rs = this.pstmt.executeQuery();
         while (rs.next()) {
 
-            Record record = new Record();
+            Event event = new Event();
 
-            record.setId(rs.getInt(1));
-            record.setUsername(rs.getString(2));
-            record.setCreateTime(rs.getDate(3));
-            record.setDeadLine(rs.getDate(4));
-            record.setContent(rs.getString(5));
-            record.setComplete(rs.getBoolean(6));
+            event.setId(rs.getInt(1));
+            event.setUsername(rs.getString(2));
+            event.setCreateTime(rs.getDate(3));
+            event.setDeadLine(rs.getDate(4));
+            event.setContent(rs.getString(5));
+            event.setComplete(rs.getBoolean(6));
 
-            records.add(record);
+            events.add(event);
         }
 
         this.pstmt.close();
-        return records;
+        return events;
     }
 
     @Override
-    public int delRecordById(int id) throws Exception {
+    public int delEventById(int id) throws Exception {
 
         int cnt = 0;
-        String sql = "DELETE FROM record_info WHERE id=?";
+        String sql = "DELETE FROM event_info WHERE id=?";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setInt(1,id);
         if (this.pstmt.executeUpdate() == 1) {
-            System.out.println("delete from record_info successfully.");
+            System.out.println("delete from event_info successfully.");
             cnt = 1;
         }
 
@@ -212,7 +211,7 @@ public class UsrDAOImpl implements IUsrDAO {
     }
 
     @Override
-    public int edtRecordById(int id, java.util.Date deadLine, String content) throws Exception {
+    public int edtEventById(int id, java.util.Date deadLine, String content) throws Exception {
 
         // 转换 deadLine 类型
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -220,13 +219,13 @@ public class UsrDAOImpl implements IUsrDAO {
         java.sql.Date datesql = new java.sql.Date(date.getTime());
 
         int cnt = 0;
-        String sql = "UPDATE record_info SET deadline=?,content=? WHERE id=?";
+        String sql = "UPDATE event_info SET deadline=?,content=? WHERE id=?";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setDate(1, datesql);
         this.pstmt.setString(2,content);
         this.pstmt.setInt(3, id);
         if ((cnt = this.pstmt.executeUpdate()) == 1) {
-            System.out.println("edit record_info successfully.");
+            System.out.println("edit event_info successfully.");
         }
 
         this.pstmt.close();

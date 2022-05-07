@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class Record {
+public class Event {
     private int id;
     private String username;
     private Date createTime;
@@ -10,10 +10,10 @@ public class Record {
     private String content;
     private boolean isComplete;
 
-    public Record() {
+    public Event() {
     }
 
-    public Record(int id, String username, Date createTime, Date deadLine, String content, boolean isComplete) {
+    public Event(int id, String username, Date createTime, Date deadLine, String content, boolean isComplete) {
         this.id = id;
         this.username = username;
         this.createTime = createTime;
