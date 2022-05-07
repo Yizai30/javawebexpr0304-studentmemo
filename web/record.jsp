@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html>
     <head>
-        <title>Edit Your Cards</title>
+        <title>Create Your DDLS</title>
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/style02.css">
     </head>
@@ -21,7 +21,7 @@
                     <div class="content">
                         <h3>2016-08-08</h3>
                         <p>这是一个样例。</p>
-                        <a href="#">更多内容</a><br>
+                        <a href="#">编辑内容</a><br>
                         <button class="del">删除记录</button>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <div class="content">
                             <h3>${record.deadLine}</h3>
                             <p>${record.content}</p>
-                            <a href="#">更多内容</a><br>
+                            <a href="#" onclick="storeRecord('${record.id}','${record.deadLine}','${record.content}')" data-toggle="modal" data-target="#editModal">编辑内容</a><br>
                             <a href="DeleteRecordServlet?id=${record.id}" class="del" onclick="if(confirm('确定删除该条原本期望在'+'${record.deadLine}'+'之前完成的事件嘛?')==false)return false">删除记录</a>
                         </div>
                     </div>
@@ -65,14 +65,45 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
-                            <input type="button" class="savebtn" value="保存" onclick="checkCard(this.form)"/>
+                            <input type="button" class="savebtn" value="添加" onclick="checkCard(this.form)"/>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
-
+        <%--    模态框为当前用户修改一条事件记录    --%>
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="editModalLabel" style="font-size:28px;font-weight: bold;">修改待做事件</h4>
+                    </div>
+                    <form name="editForm" action="EditRecordServlet" method="post">
+                        <div class="modal-body">
+                            <span style="font-size:16px;font-weight: bold;margin-bottom: 6px;display: none">记录ID：</span>
+                            <input id="eId" name="eId" style="border: none;outline: none;width: 30px;display: none" readonly/>
+                            <p style="font-size: 16px;font-weight: bold;">截止时间：</p>
+                            <input id="eDdlYear" name="eDdlYear" class="inputext" style="width: 88px" type="text" placeholder="YYYY">
+                            <span style="font-size: 16px;font-weight: bold;">年</span>
+                            <input id="eDdlMonth" name="eDdlMonth" class="inputext" style="width: 72px" type="text" placeholder="MM">
+                            <span style="font-size: 16px;font-weight: bold;">月</span>
+                            <input id="eDdlDay" name="eDdlDay" class="inputext" style="width: 72px" type="text" placeholder="DD">
+                            <span style="font-size: 16px;font-weight: bold;">日</span>
+                            <p style="font-size: 16px;font-weight: bold;">事件内容：</p>
+                            <textarea id="eEventContent" name="eEventContent" class="inputextarea"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
+                            <input type="button" class="savebtn" value="保存" onclick="checkEdit(this.form)"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <%
             if (request.getSession().getAttribute("passwd") == null) {
@@ -158,7 +189,47 @@
                 }
             }
 
-            // 点击添加按钮，创建新的卡片
+            // 卡片修改校验
+            function checkEdit(form) {
+                if (!isYear(form.eDdlYear.value)) {
+                    alert("年份需为 2022-2050 之间的数值");
+                    form.eDdlYear.focus();
+                    return false;
+                }
+                if (!isMonth(form.eDdlMonth.value)) {
+                    alert("月份需为 01-12 之间的数值");
+                    form.eDdlMonth.focus();
+                    return false;
+                }
+                if (!isDay(form.eDdlYear.value, form.eDdlMonth.value, parseInt(form.eDdlDay.value, 10))) {
+                    alert("需修改为存在的日期");
+                    form.eDdlDay.focus();
+                    return false;
+                }
+                if (form.eEventContent.value === "") {
+                    alert("事件内容不能为空");
+                    form.eEventContent.focus();
+                    return false;
+                }
+
+                document.editForm.submit();
+            }
+
+            // 存储需要修改的 record 的 id, deadLine（需要进行字符串处理）, content
+            function storeRecord(id, deadLine, content) {
+                sessionStorage.setItem("eId", id);
+                $('#eId').attr("value", sessionStorage.getItem("eId"));
+
+                // 分割 deadLine
+                var timeYMD = deadLine.toString().split("-");
+                $('#eDdlYear').attr("value", timeYMD[0]);
+                $('#eDdlMonth').attr("value", timeYMD[1]);
+                $('#eDdlDay').attr("value", timeYMD[2]);
+
+                $('#eEventContent').val(content);
+            }
+
+            // 点击添加按钮，创建新的卡片（测试用）
             function createCard() {
 
                 // 找到添加卡片的区域
@@ -218,7 +289,7 @@
                 $divs.detach().appendTo('#records');
             }
 
-            // 删除相应卡片
+            // 删除相应卡片（测试用）
             function deleteCard(obj) {
                 delObj = obj.parentNode.parentNode;
                 parentContainer = delObj.parentNode;

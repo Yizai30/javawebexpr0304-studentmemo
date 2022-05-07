@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html>
 <head>
-    <title>Edit Your Cards</title>
+    <title>Create Your Diaries</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style03.css">
 </head>
@@ -24,7 +24,7 @@
                 <lable style="font-weight: bold">心情：</lable><p>这是心情样例内容。</p>
             </div>
             <div class="content02">
-                <a href="#">更多内容</a><br>
+                <a href="#">修改内容</a><br>
                 <button class="del">删除日记</button>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <lable style="font-weight: bold">心情：</lable><p>${diary.mood}</p>
                 </div>
                 <div class="content02">
-                    <a href="#">更多内容</a><br>
+                    <a href="#" onclick="storeDiary('${diary.id}','${diary.content}','${diary.mood}')" data-toggle="modal" data-target="#reviseModal">修改内容</a><br>
                     <a href="DeleteDiaryServlet?id=${diary.id}" class="del" onclick="if(confirm('确定删除'+'${diary.createTime}'+'的日记嘛?')==false)return false">删除日记</a>
                 </div>
             </div>
@@ -44,18 +44,18 @@
     </div>
 </div>
 <div class="container2">
-    <button class="addbtn" data-toggle="modal" data-target="#myModal"></button>
+    <button class="addbtn" data-toggle="modal" data-target="#addModal"></button>
 </div>
 
-<%--    模态框为当前用户添加一条事件记录    --%>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<%--    模态框为当前用户添加日记    --%>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel" style="font-size:28px;font-weight: bold;">记录一下成长的一天</h4>
+                <h4 class="modal-title" id="addModalLabel" style="font-size:28px;font-weight: bold;">记录一下成长的一天</h4>
             </div>
             <form name="diaryForm" action="InsertDiaryServlet" method="post">
                 <div class="modal-body">
@@ -73,14 +73,41 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
-                    <input type="button" class="savebtn" value="保存" onclick="checkCard(this.form)"/>
+                    <input type="button" class="savebtn" value="添加" onclick="checkCard(this.form)"/>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
+<%--    模态框为当前用户修改日记    --%>
+<div class="modal fade" id="reviseModal" tabindex="-1" role="dialog" aria-labelledby="reviseModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="reviseModalLabel" style="font-size:28px;font-weight: bold;">编辑内容</h4>
+            </div>
+            <form name="reviseForm" action="ReviseDiaryServlet" method="post">
+                <div class="modal-body">
+                    <%-- 设置 display: none 属性，隐藏id，使界面简洁 --%>
+                    <span style="font-size:16px;font-weight: bold;margin-bottom: 6px;display: none">日记ID：</span>
+                    <input id="rId" name="rId" style="border: none;outline: none;width: 30px;display: none" type="text" readonly/>
+                    <p style="font-size: 16px;font-weight: bold;">日记：</p>
+                    <textarea id="rDiaryContent" name="rDiaryContent" class="inputextarea"></textarea>
+                    <p style="font-size: 16px;font-weight: bold;">心情：</p>
+                    <textarea id="rMoodContent" name="rMoodContent" class="inputextarea"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="closebtn" data-dismiss="modal">关闭</button>
+                    <input type="button" class="savebtn" value="保存" onclick="checkRevise(this.form)"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <%
     if (request.getSession().getAttribute("passwd") == null) {
@@ -135,8 +162,6 @@
             return false;
         }
 
-        // 校验成功，创建卡片
-        // createCard();
         document.diaryForm.submit();
     }
     function isYear(str) {
@@ -171,84 +196,28 @@
         }
     }
 
-    // 点击添加按钮，创建新的卡片
-    function createCard() {
+    // 修改内容校验
+    function checkRevise(form) {
+        if (form.rDiaryContent.value === "") {
+            alert("日记内容不能为空");
+            form.rDiaryContent.focus();
+            return false;
+        }
+        if (form.rMoodContent.value === "") {
+            alert("心情内容不能为空");
+            form.rMoodContent.focus();
+            return false;
+        }
 
-        // 找到添加卡片的区域
-        let cardContainer = document.getElementById('diaries');
-
-        // 待组装的节点
-        let div01 = document.createElement('div');
-        let div02 = document.createElement('div');
-        let div03 = document.createElement('div');
-        let h3 = document.createElement('h3');
-        let lbl01 = document.createElement('label');
-        let lbl02 = document.createElement('label');
-        let p01 = document.createElement('p');
-        let p02 = document.createElement('p');
-        let a = document.createElement('a');
-        let br = document.createElement('br');
-        let del = document.createElement('button');
-
-        // 待填充的值
-        let diaryYear = document.getElementById('diaryYear').value;
-        let diaryMonth = document.getElementById('diaryMonth').value;
-        let diaryDay = document.getElementById('diaryDay').value;
-        let diaryContent = document.getElementById('diaryContent').value;
-        let moodContent = document.getElementById('moodContent').value;
-
-        // 设置节点属性
-        div01.setAttribute('class', 'card');
-        div02.setAttribute('class', 'content01');
-        div03.setAttribute('class', 'content02');
-        lbl01.setAttribute('style', 'font-weight: bold');
-        lbl02.setAttribute('style', 'font-weight: bold');
-        a.setAttribute('href', '#');
-        del.setAttribute('class', 'del');
-        del.setAttribute('onclick', 'deleteCard(this)');
-
-        // 设置节点的值
-        h3.innerText = diaryYear + "-" + diaryMonth + "-" + diaryDay;
-        p01.innerText = diaryContent;
-        p02.innerText = moodContent;
-        a.innerText = "更多内容";
-        del.innerText = "删除记录";
-
-        // 组装节点元素
-        cardContainer.appendChild(div01);
-        div01.appendChild(div02);
-        div01.appendChild(div03);
-        div02.appendChild(h3);
-        div02.appendChild(lbl01);
-        div02.appendChild(p01);
-        div02.appendChild(lbl02);
-        div02.appendChild(p02);
-        div03.appendChild(a);
-        div03.appendChild(br);
-        div03.appendChild(del);
-
-        // 渲染卡片的玻璃效果
-        VanillaTilt.init(document.querySelectorAll(".card"),{
-            max: 3,    // 最大倾斜度数
-            speed: 330, // 倾斜转换的速度
-            glare: true,    // 是否开启眩光效果
-            "max-glare": 1  // 最大眩光的不透明度
-        })
-
-        // 获取记录截止时间, 并按紧迫程度排序
-        var $divs = $('#records .card');
-        $divs.sort(function(a,b){
-            var dateOfA = Date.parse($(a).find('h3').text());
-            var dateOfB = Date.parse($(b).find('h3').text());
-            return dateOfA - dateOfB;});
-        $divs.detach().appendTo('#records');
+        document.reviseForm.submit();
     }
 
-    // 删除相应卡片
-    function deleteCard(obj) {
-        delObj = obj.parentNode.parentNode;
-        parentContainer = delObj.parentNode;
-        parentContainer.removeChild(delObj);
+    // 存储需要修改的 diary 的 id, content, mood
+    function storeDiary(id, content, mood) {
+        sessionStorage.setItem("rId", id);
+        $('#rId').attr("value", sessionStorage.getItem("rId"));
+        $('#rDiaryContent').val(content);
+        $('#rMoodContent').val(mood);
     }
 </script>
 </body>

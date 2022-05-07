@@ -212,6 +212,28 @@ public class UsrDAOImpl implements IUsrDAO {
     }
 
     @Override
+    public int edtRecordById(int id, java.util.Date deadLine, String content) throws Exception {
+
+        // 转换 deadLine 类型
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = sdf.parse(sdf.format(deadLine));
+        java.sql.Date datesql = new java.sql.Date(date.getTime());
+
+        int cnt = 0;
+        String sql = "UPDATE record_info SET deadline=?,content=? WHERE id=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setDate(1, datesql);
+        this.pstmt.setString(2,content);
+        this.pstmt.setInt(3, id);
+        if ((cnt = this.pstmt.executeUpdate()) == 1) {
+            System.out.println("edit record_info successfully.");
+        }
+
+        this.pstmt.close();
+        return cnt;
+    }
+
+    @Override
     public boolean doCreateDiary(Diary diary) throws Exception {
 
         // 转换 createTime 类型
@@ -270,6 +292,23 @@ public class UsrDAOImpl implements IUsrDAO {
         this.pstmt.setInt(1, id);
         if ((cnt = this.pstmt.executeUpdate()) == 1) {
             System.out.println("delete from diary_info successfully.");
+        }
+
+        this.pstmt.close();
+        return cnt;
+    }
+
+    @Override
+    public int revDiaryById(int id, String content, String mood) throws Exception {
+
+        int cnt = 0;
+        String sql = "UPDATE diary_info SET content=?,mood=? WHERE id=?";
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1, content);
+        this.pstmt.setString(2, mood);
+        this.pstmt.setInt(3, id);
+        if ((cnt = this.pstmt.executeUpdate()) == 1) {
+            System.out.println("revise diary_info successfully.");
         }
 
         this.pstmt.close();

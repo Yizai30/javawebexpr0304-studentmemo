@@ -8,6 +8,7 @@ import vo.Passwd;
 import vo.Record;
 import vo.Usr;
 
+import java.util.Date;
 import java.util.List;
 
 public class UsrDAOProxy implements IUsrDAO {
@@ -128,6 +129,19 @@ public class UsrDAOProxy implements IUsrDAO {
     }
 
     @Override
+    public int edtRecordById(int id, Date deadLine, String content) throws Exception {
+        int cnt = 0;
+        try {
+            cnt = this.dao.edtRecordById(id, deadLine, content);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return cnt;
+    }
+
+    @Override
     public boolean doCreateDiary(Diary diary) throws Exception {
         boolean flag = false;
         try {
@@ -158,6 +172,19 @@ public class UsrDAOProxy implements IUsrDAO {
         int cnt = 0;
         try {
             cnt = this.dao.delDiaryById(id);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
+        return cnt;
+    }
+
+    @Override
+    public int revDiaryById(int id, String content, String mood) throws Exception {
+        int cnt = 0;
+        try {
+            cnt = this.dao.revDiaryById(id, content, mood);
         } catch (Exception e) {
             throw e;
         } finally {

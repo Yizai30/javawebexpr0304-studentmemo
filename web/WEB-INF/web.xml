@@ -80,6 +80,16 @@
         <url-pattern>/DeleteRecordServlet</url-pattern>
     </servlet-mapping>
 
+    <!--  根据 id 修改 record 数据  -->
+    <servlet>
+        <servlet-name>editRecord</servlet-name>
+        <servlet-class>servlet.EditRecordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editRecord</servlet-name>
+        <url-pattern>/EditRecordServlet</url-pattern>
+    </servlet-mapping>
+
     <!--  访问 diary.jsp 前判断是否登录  -->
     <servlet>
         <servlet-name>jlDiary</servlet-name>
@@ -118,5 +128,15 @@
     <servlet-mapping>
         <servlet-name>deleteDiary</servlet-name>
         <url-pattern>/DeleteDiaryServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  根据 id 修改 diary 数据  -->
+    <servlet>
+        <servlet-name>reviseDiary</servlet-name>
+        <servlet-class>servlet.ReviseDiaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reviseDiary</servlet-name>
+        <url-pattern>/ReviseDiaryServlet</url-pattern>
     </servlet-mapping>
 </web-app>
