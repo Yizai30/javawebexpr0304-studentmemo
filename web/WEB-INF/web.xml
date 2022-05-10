@@ -139,4 +139,42 @@
         <servlet-name>reviseDiary</servlet-name>
         <url-pattern>/ReviseDiaryServlet</url-pattern>
     </servlet-mapping>
+
+    <!--  判断是不是管理员  -->
+    <servlet>
+        <servlet-name>checkAdminServlet</servlet-name>
+        <servlet-class>servlet.CheckAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkAdminServlet</servlet-name>
+        <url-pattern>/CheckAdminServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--  过滤器实现管理员登录验证，登录之后定向选择页面，index.jsp 或 admin.jsp  -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/check_admin</url-pattern>
+    </filter-mapping>
+
+    <!--  过滤器实现用户登录验证  -->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/IndexServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/ShowDiaryServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/ShowEventServlet</url-pattern>
+    </filter-mapping>
 </web-app>

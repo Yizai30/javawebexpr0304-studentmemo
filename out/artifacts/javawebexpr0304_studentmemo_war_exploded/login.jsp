@@ -20,6 +20,7 @@
             <input class="smbutton" type="button" value="登录" onclick="checkLogin(this.form)"/>
         </form>
         <span>没有账号？<a href="register.jsp">去注册</a></span>
+        <span style="margin-top: 10px">管理员登录？<a href="admin_login.jsp">管理员登录页</a></span>
     </div>
     <div class="square">
         <ul>
