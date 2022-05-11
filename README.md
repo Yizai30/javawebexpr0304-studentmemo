@@ -210,7 +210,7 @@ TCP/IP 通信协议接口
 
 #### 6.3.1 admin.jsp
 
-![image-20220511234804695](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234804695.png)
+![image-20220511234804695](./png/admin.png)
 
 #### 6.3.2 admin_login.jsp
 
