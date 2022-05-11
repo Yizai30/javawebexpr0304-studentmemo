@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <html>
 <head>
-    <title>Create Your Diaries</title>
+    <title>Create My Diaries</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style03.css">
 </head>
@@ -108,12 +108,6 @@
         </div>
     </div>
 </div>
-
-<%
-    if (request.getSession().getAttribute("passwd") == null) {
-        response.sendRedirect("JudgeLoginDiaryServlet");
-    }
-%>
 
 <script src="./js/vanilla-tilt.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>

@@ -25,7 +25,7 @@ public class AdminFilter implements Filter {
         resp.setContentType("text/html;charset=utf-8");
 
         String noLoginPath = "login.jsp";
-        String loginOrdinaryPath = "IndexServlet";
+        String loginOrdinaryPath = "index.jsp";
         String loginAdminPath = "admin.jsp";
 
         // 获取 session 中保存的用户信息

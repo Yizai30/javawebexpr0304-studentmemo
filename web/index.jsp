@@ -12,11 +12,6 @@
     <link rel="stylesheet" href="./css/style04.css">
 </head>
 <body>
-    <%
-        if (request.getSession().getAttribute("passwd") == null) {
-            response.sendRedirect("IndexServlet");
-        }
-    %>
     <h1 style="font-size: 50px;">Welcome To STM</h1>
     <div id="currentTime" style="margin-top: 5px;font-size: 20px"></div>
     <img src="./images/showlink.png" width="80" height="80">
@@ -28,8 +23,35 @@
             查看我的日记
         </a>
     </div>
+    <div class="square">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="circle">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
 
+    <script src="./js/vanilla-tilt.js"></script>
     <script>
+
+        VanillaTilt.init(document.querySelectorAll(".card"),{
+            max: 3,    // 最大倾斜度数
+            speed: 330, // 倾斜转换的速度
+            glare: true,    // 是否开启眩光效果
+            "max-glare": 1  // 最大眩光的不透明度
+        })
+
         window.onload = function() {
             var date = new Date();
             var year = date.getFullYear();

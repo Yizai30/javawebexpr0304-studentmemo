@@ -31,25 +31,6 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>index</servlet-name>
-        <servlet-class>servlet.IndexServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>index</servlet-name>
-        <url-pattern>/IndexServlet</url-pattern>
-    </servlet-mapping>
-
-    <!--  访问 event.jsp 前判断是否登录  -->
-    <servlet>
-        <servlet-name>jlEvent</servlet-name>
-        <servlet-class>servlet.JudgeLoginEventServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>jlEvent</servlet-name>
-        <url-pattern>/JudgeLoginEventServlet</url-pattern>
-    </servlet-mapping>
-
     <!--  前台展示 event 数据  -->
     <servlet>
         <servlet-name>showEvent</servlet-name>
@@ -88,16 +69,6 @@
     <servlet-mapping>
         <servlet-name>editEvent</servlet-name>
         <url-pattern>/EditEventServlet</url-pattern>
-    </servlet-mapping>
-
-    <!--  访问 diary.jsp 前判断是否登录  -->
-    <servlet>
-        <servlet-name>jlDiary</servlet-name>
-        <servlet-class>servlet.JudgeLoginDiaryServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>jlDiary</servlet-name>
-        <url-pattern>/JudgeLoginDiaryServlet</url-pattern>
     </servlet-mapping>
 
     <!--  前台展示 diary 数据  -->
@@ -157,7 +128,7 @@
     </filter>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/check_admin</url-pattern>
+        <url-pattern>/admin.jsp</url-pattern>
     </filter-mapping>
 
     <!--  过滤器实现用户登录验证  -->
@@ -176,5 +147,17 @@
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/ShowEventServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/diary.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/event.jsp</url-pattern>
     </filter-mapping>
 </web-app>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login To STM</title>
+    <title>Admin Login To STM</title>
     <link rel="stylesheet" href="css/style01.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
         <input class="inputext" type="password" placeholder="密码" name="password"/>
         <input class="smbutton" type="button" value="登录" onclick="checkLogin(this.form)"/>
     </form>
-    <span>没有账号？<a href="register.jsp">去注册</a></span>
+    <span style="margin-top: 10px">普通用户登录？<a href="login.jsp">普通用户登录页</a></span>
 </div>
 <div class="square">
     <ul>
