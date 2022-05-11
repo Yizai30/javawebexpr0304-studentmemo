@@ -214,30 +214,30 @@ TCP/IP 通信协议接口
 
 #### 6.3.2 admin_login.jsp
 
-![image-20220511234743494](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234743494.png)
+![image-20220511234743494](./png/admin_login.png)
 
 #### 6.3.3 diary.jsp
 
-![image-20220511234939080](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234939080.png)
+![image-20220511234939080](./png/diary.png)
 
 #### 6.3.4 error.jsp
 
-![image-20220511235000525](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511235000525.png)
+![image-20220511235000525](./png/error.png)
 
 #### 6.3.5 event.jsp
 
-![image-20220511234919908](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234919908.png)
+![image-20220511234919908](./png/event.png)
 
 #### 6.3.6 index.jsp
 
-![image-20220511234905378](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234905378.png)
+![image-20220511234905378](./png/index.png)
 
 #### 6.3.7 login.jsp
 
-![image-20220511234822474](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234822474.png)
+![image-20220511234822474](./png/login.png)
 
 #### 6.3.8 register.jsp
 
-![image-20220511234835714](C:\Users\Mena\AppData\Roaming\Typora\typora-user-images\image-20220511234835714.png)
+![image-20220511234835714](./png/register.png)
 
 ## 7 软件测试
