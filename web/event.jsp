@@ -38,7 +38,8 @@
             </div>
         </div>
         <div class="container2">
-          <button class="addbtn" data-toggle="modal" data-target="#myModal"></button>
+            <a class="homebtn" href="index.jsp"></a>
+            <button class="addbtn" data-toggle="modal" data-target="#myModal"></button>
         </div>
 
         <%--    模态框为当前用户添加一条事件记录    --%>
@@ -118,6 +119,12 @@
                 "max-glare": 1  // 最大眩光的不透明度
             })
             VanillaTilt.init(document.querySelector(".addbtn"),{
+                max: 5,
+                speed: 300,
+                glare: true,
+                "max-glare": 1
+            })
+            VanillaTilt.init(document.querySelector(".homebtn"),{
                 max: 5,
                 speed: 300,
                 glare: true,

@@ -44,6 +44,7 @@
     </div>
 </div>
 <div class="container2">
+    <a class="homebtn" href="index.jsp"></a>
     <button class="addbtn" data-toggle="modal" data-target="#addModal"></button>
 </div>
 

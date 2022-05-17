@@ -155,6 +155,28 @@ body::after {
     display: flex;
     flex-direction: column;
 }
+.homebtn {
+    /* 相对定位 */
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1) url(../images/homebtn.png);
+    background-size: 80px;
+    margin: 13px 63px 13px auto;
+    border-radius: 10px;
+    z-index: 1;
+    /* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影颜色 */
+    box-shadow: 13px 13px 30px rgba(0, 0, 0, 0.5);
+    /* 溢出隐藏 */
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    border-right: 0px;
+    border-bottom: 0px;
+    /* 背景模糊 */
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+}
 .addbtn {
     /* 相对定位 */
     position: relative;
