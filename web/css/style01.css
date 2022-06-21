@@ -13,7 +13,7 @@ body {
     /* 栅格背景 */
     background-color: #f1dea1;
     /** 
-     * β 表示颜色完全显示(没有开始渐变)的位置, Θ 表示当前背景色透明(transparent)的右区间, 左区间为上一个 Θ (初始为 0)
+     * β 表示颜色完全显示(没有开始渐变, 或完全没有被遮挡)的位置, Θ 表示当前半透明遮挡(transparent)的右区间, 左区间为上一个 Θ (初始为 0)
      * 又令 str = "(rgba() β)*, transparent Θ", 其中 (rgba() β)* 表示 0 个或多个 rgba() β
      * 那么格式可以写作
      * linear-gradient(颜色变化角度, str*), 其中 str* 表示 0 个或多个 str
